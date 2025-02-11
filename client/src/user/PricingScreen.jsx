@@ -105,6 +105,9 @@ const PricingScreen = () => {
       order_id: orderData.id,
       handler: function (response) {
         console.log(response);
+        const { email, contact } = response;  // Razorpay response contains the email and contact info
+        console.log("User Email: ", email);
+        console.log("User Contact Number: ", contact);
         handleSubmits(response.razorpay_payment_id);        
       },
       prefill: {
