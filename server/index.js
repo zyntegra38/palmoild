@@ -21,6 +21,7 @@ import { fileURLToPath } from 'url';
 import sitemapRoutes from './routes/sitemapRoutes.js';
 import reminderRoutes from './routes/reminderRoutes.js'
 import pdfRoutes from "./routes/pdfRoutes.js";
+import featuredcompanyRoutes from './routes/featuredcompanyRoutes.js';
 import Razorpay from 'razorpay';
 import cron from 'node-cron';
 
@@ -72,6 +73,7 @@ app.use('/api/countries', countryRoutes);
 app.use('/api/sites', siteRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/companies', companyRoutes);
+app.use('/api/featuredcompanies', featuredcompanyRoutes);
 app.use('/api/favorites', FavoriteRoutes);
 app.use('/api/staff', StaffRoutes);
 app.use("/auth", authRoutes);
@@ -87,9 +89,9 @@ app.use(errorHandler);
 
 import { sendReminder } from './controllers/reminderController.js';
 
-cron.schedule('* * * * *', () => {
-  console.log('Sending reminder every minute...');
-  sendReminder();
-});
+// cron.schedule('* * * * *', () => {
+//   console.log('Sending reminder every minute...');
+//   sendReminder();
+// });
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

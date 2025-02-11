@@ -165,22 +165,66 @@ const HomeScreen = () => {
                 </svg>
             </div>
             <div className="container px-4 lg:px-8 mx-auto mb-5 max-w-screen-xl text-gray-700 overflow-x-hidden lg:overflow-x-visible">
+                <div className="p-5">
+                    <div className="grid grid-cols-4 gap-6">
+                        <div className="col-span-4">
+                        <div className="grid grid-cols-3 gap-6">
+                            {[...Array(6)].map((_, index) => (
+                            <div
+                                key={index}
+                                className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center relative"
+                            >
+                                <button className="absolute top-2 right-2">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="2"
+                                    stroke="currentColor"
+                                    className="w-6 h-6 text-gray-500 hover:text-red-500"
+                                >
+                                    <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M20.84 4.61c-.55-.54-1.32-.87-2.12-.87-1.54 0-2.87 1.08-3.38 2.63h-1.9c-.5-1.55-1.84-2.63-3.38-2.63-.8 0-1.57.33-2.12.87-.6.6-.88 1.42-.88 2.25 0 3.88 6.63 8.3 7.5 8.84.11.08.23.12.36.12s.25-.04.36-.12c.87-.54 7.5-4.96 7.5-8.84 0-.83-.28-1.65-.88-2.25z"
+                                    />
+                                </svg>
+                                </button>
+                                <img
+                                src="./FGV IFFCO SDN BHD15_logo.jpg"
+                                alt="Logo"
+                                className="mb-4"
+                                />
+                                <h4 className="text-lg font-medium text-center">
+                                FGV IFFCO SDN BHD
+                                </h4>
+                                <button className="bg-black text-white px-6 py-2 rounded-full mt-4">
+                                More info
+                                </button>
+                            </div>
+                            ))}
+                        </div>
+                        </div>
+                    </div>
+                </div>
                 <div className="md:flex mt-10 md:space-x-10 items-start">
+                
                     <div data-aos="fade-down" className="md:w-5/12 relative aos-init aos-animate">
                         <div style={{ background: '#33EFA0' }} className="w-32 h-32 rounded-full absolute z-0 left-4 -top-12 animate-pulse"></div>
                         <div style={{ background: '#33D9EF' }} className="w-5 h-5 rounded-full absolute z-0 left-36 -top-12 animate-ping"></div>
                         <div className="frames h-96 overflow-hidden">
                             <img className="floating" src={vlo_img} alt="Palmoildirectory Palm Field"/>
-                            <div className='mt-10'>
+                            {/* <div className='mt-10'>
                                 <p>Frequently Asked Questions</p>
                                 <p>Is This A Subscription?</p>
                                 <p>No - This a one time payment, no further payments necessary.</p>
-                            </div>
+                            </div> */}
                         </div>
                         
                         <div style={{ background: '#5B61EB' }} className="w-32 h-32 rounded-full absolute z-0 right-0 -bottom-10 animate-pulse"></div>
                         <div style={{ background: '#F56666' }} className="w-5 h-5 rounded-full absolute z-0 right-52 -bottom-10 animate-ping"></div>
                     </div>
+
                     <div data-aos="fade-down" className="md:w-7/12 mt-20 md:mt-0 text-gray-500 aos-init aos-animate">
                         <h1 className="text-2xl font-semibold text-darken lg:pr-40"><span className="text-yellow-500">PalmOil </span> Directory</h1>
                         <div className="flex items-center space-x-5 my-5">

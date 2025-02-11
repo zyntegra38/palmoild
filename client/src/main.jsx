@@ -57,6 +57,8 @@ import SendEmail from './admin/SendEmail.jsx';
 import MailHistory from './admin/MailHistory.jsx';
 import PdfUpload from './admin/PdfUploadScreen.jsx';
 import PdfDisplayPage from './screens/PdfDisplay.jsx';
+import FeaturedCompanyScreen from './admin/FeaturedCompanyScreen.jsx';
+import FeaturedAddCompany from './admin/FeaturedAddCompany.jsx';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import TemplateScreen from './admin/TemplateScreen.jsx';
 
@@ -93,11 +95,13 @@ const router = createBrowserRouter(
         <Route path='/admin-blog' element={<BlogList />} />
         <Route path='/admin-email' element={<SendEmail />} />
         <Route path='/admin-company' element={<CompanyScreen />} />
+        <Route path='/admin-featuredcompany' element={<FeaturedCompanyScreen />} />
         <Route path='/admin-site' element={<SiteScreen />} />
         <Route path='/admin-category' element={<CategoryScreen />} />
         <Route path='/admin-cms' element={<CMSScreen />} />      
         <Route path='/profile' element={<ProfileScreen />} />
         <Route path='/add-company' element={<AddCompany />} />
+        <Route path='/add-featuredcompany' element={<FeaturedAddCompany />} />
         <Route path='/edit-company/:companyId' element={<AddCompany />} />
         <Route path='/admin-users' element={<Users />} />
         <Route path='/admin-mailhistory' element={<MailHistory />} />

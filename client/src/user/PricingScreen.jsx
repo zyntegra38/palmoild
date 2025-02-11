@@ -96,7 +96,7 @@ const PricingScreen = () => {
     }
 
     const options = {
-      key: 'rzp_live_NCXCXBQAFe6FUE', // Use an environment variable
+      key: 'rzp_test_S49jRpzo4Muzlh', // Use an environment variable
       amount: orderData.amount,
       currency: 'USD',
       name: 'Palmoil Directory',
@@ -104,6 +104,7 @@ const PricingScreen = () => {
       image: 'https://your-logo-url.com/logo.png',
       order_id: orderData.id,
       handler: function (response) {
+        console.log(response);
         handleSubmits(response.razorpay_payment_id);        
       },
       prefill: {
