@@ -65,7 +65,15 @@ app.post('/create-order', async (req, res) => {
       res.status(500).json({ error: error.message });
     }
 });
-
+app.get('/get-payment-details', async (req, res) => {
+  try {
+    const paymentId = req.query.payment_id;
+    const paymentDetails = await razorpay.payments.fetch(paymentId);
+    res.json({ email: paymentDetails.email, contact: paymentDetails.contact });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // Define API routes
 app.use('/api/users', userRoutes);

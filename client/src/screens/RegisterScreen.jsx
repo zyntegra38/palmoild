@@ -405,12 +405,16 @@ const RegisterScreen = () => {
       image: 'https://your-logo-url.com/logo.png',
       order_id: orderData.id,
       handler: function (response) {
-        console.log(response);
-        const { email, contact } = response;  // Razorpay response contains the email and contact info
-        console.log("User Email: ", email);
-        console.log("User Contact Number: ", contact);
-        handleSubmitt(response.razorpay_payment_id);
-        // Optionally verify payment on the server
+        const paymentId = response.razorpay_payment_id;
+        fetch(`${BACKEND_URL}/get-payment-details?payment_id=${paymentId}`)
+          .then(res => res.json())
+          .then(data => {
+            console.log("User Email: ", data.email);
+            console.log("User Contact Number: ", data.contact);
+          })
+          .catch(error => console.error("Error fetching payment details:", error));
+
+        handleSubmitt(paymentId);       
       },
       prefill: {
         name: 'PalmOil Directory',
