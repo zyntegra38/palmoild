@@ -245,6 +245,7 @@ const Header = () => {
                                 <Link to="/admin-cms" onClick={closeSubmenu} className={`block px-1 py-1 text-sm bg-transparent text-black focus:outline-none focus:shadow-outline font-semibold ${activeLink === '/admin-cms' && 'active'}`}>CMS </Link>
                                 <Link to="/admin-country" onClick={closeSubmenu} className={`block px-1 py-1 text-sm bg-transparent text-black focus:outline-none focus:shadow-outline font-semibold ${activeLink === '/admin-country' && 'active'}`}>COUNTRY</Link>
                                 <Link to="/admin-category" onClick={closeSubmenu} className={`block px-1 py-1 text-sm bg-transparent text-black focus:outline-none focus:shadow-outline font-semibold ${activeLink === '/admin-category' && 'active'}`}>CATEGORY</Link>
+                                <Link to="/admin-featuredcompany" onClick={closeSubmenu} className={`block px-1 py-1 text-sm bg-transparent text-black focus:outline-none focus:shadow-outline font-semibold ${activeLink === '/admin-featuredcompany' && 'active'}`}>FEATUREDCOMPANY</Link>
                               </div>
                             </div>
                           )}

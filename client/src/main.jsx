@@ -103,6 +103,7 @@ const router = createBrowserRouter(
         <Route path='/add-company' element={<AddCompany />} />
         <Route path='/add-featuredcompany' element={<FeaturedAddCompany />} />
         <Route path='/edit-company/:companyId' element={<AddCompany />} />
+        <Route path='/edit-featuredcompany/:companyId' element={<FeaturedAddCompany />} />
         <Route path='/admin-users' element={<Users />} />
         <Route path='/admin-mailhistory' element={<MailHistory />} />
         <Route path='/search' element={<Search />} />

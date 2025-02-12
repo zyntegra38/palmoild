@@ -250,12 +250,12 @@ const FeaturedAddCompany = () => {
             if (companyId) {
                 const response = await axios.put(`${ BACKEND_URL }api/featuredcompanies/${companyId}`, formDataToSend);
                 const companyData = response.data; 
-                navigate(`/admin-company`);
+                navigate(`/admin-featuredcompany`);
                 toast.success('Company details Updated Successfully');
             } else {
                 const response =await axios.post(`${ BACKEND_URL }api/featuredcompanies`, formDataToSend);
                 const companyData = response.data; 
-                navigate(`/admin-company`);
+                navigate(`/admin-featuredcompany`);
                 toast.success('Company details Added Successfully');
             }
             formdatavalue();

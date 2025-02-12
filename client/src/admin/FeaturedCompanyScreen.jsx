@@ -149,7 +149,7 @@ const FeaturedCompanyScreen = () => {
                                                 <td className="font-lato text-gray-600 text-sm p-2">{company.countryName}</td>
                                                 <td className="font-lato text-gray-600 text-sm p-2 text-center">
                                                     <Link className="font-lato text-sm bg-blue-500 hover:bg-blue-700 text-white py-2 px-2 rounded focus:outline-none focus:shadow-outline md:inline-block"
-                                                        to={`/edit-company/${company._id}`}>Edit</Link> 
+                                                        to={`/edit-featuredcompany/${company._id}`}>Edit</Link> 
                                                     <button
                                                         onClick={() => handleDeleteCompany(company._id)}
                                                         className="font-lato text-sm bg-red-500 hover:bg-red-700 text-white py-1.5 ml-1 px-2 rounded focus:outline-none focus:shadow-outline md:inline-block">Delete</button>                               
