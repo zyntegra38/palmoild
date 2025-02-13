@@ -11,7 +11,8 @@ import {
   updateUserD,
   forgetPassword,
   deleteUser,
-  updateUserPassword
+  updateUserPassword,
+  directRegistration
 } from '../controllers/userController.js';
 import { protect } from '../middleware/authMiddleware.js';
 
@@ -22,6 +23,7 @@ router.get('/inactive', inactiveUser);
 router.route('/:id').delete(deleteUser);
 router.post('/', registerUser);
 router.post('/auth', authUser);
+router.post('/direct', directRegistration);
 router.post('/logout', logoutUser);
 router.put('/subscribe', updateUserD);
 router.post('/forget-password', forgetPassword);

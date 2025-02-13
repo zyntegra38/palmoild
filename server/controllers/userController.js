@@ -337,6 +337,49 @@ const deleteUser = asyncHandler(async (req, res) => {
 });
 // Define a controller function for handling login success
 
+const directRegistration = asyncHandler(async (req, res) => {
+  const { name, email, company, address, address2, country_id, mobile, password,transaction_id,status } = req.body;
+  const userExists = await User.findOne({ email });  
+  const companies = await Company.findOne({ company: company });
+  if (companies) {
+    res.status(400);
+    throw new Error("company already exists");
+  }
+  if (userExists) {
+    res.status(400);
+    throw new Error("User already exists");
+  }
+  const user = await User.create({
+    name,
+    email,
+    company,
+    address,
+    address2,
+    country_id,
+    mobile,
+    transaction_id,
+    status,
+    password,
+  });
+  if (user) {
+    generateToken(res, user._id);
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      company: user.company,
+      address: user.address,
+      address2: user.address2,
+      country_id: user.country_id,
+      mobile: user.mobile,
+      role: user.role,
+      status:user.status,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid user data");
+  }
+});
 
 export {  
   activeUser,
@@ -352,4 +395,5 @@ export {
   forgetPassword,
   passwordreset,  
   deleteUser,  
+  directRegistration,
 };

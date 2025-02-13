@@ -241,9 +241,7 @@ export const sendPaymentMail = asyncHandler(async (req, res) => {
   });
 
   const transporter = nodemailer.createTransport({
-    host: "mail.palmoildirectory.com",
-    port: 465,
-    secure: true,
+    service:'Gmail',
     auth: {
       user: contact_email_user,
       pass: contact_email_pass,

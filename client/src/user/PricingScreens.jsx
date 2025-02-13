@@ -12,7 +12,7 @@ const LazyLoadingSpinner = () => (
   <div className="spinner"></div>
 );
 
-const PricingScreens = () => {
+const PricingScreen = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [pricingData, setPricingData] = useState(null);
@@ -104,23 +104,16 @@ const PricingScreens = () => {
       image: 'https://your-logo-url.com/logo.png',
       order_id: orderData.id,
       handler: function (response) {
-      const paymentId = response.razorpay_payment_id;
+        const paymentId = response.razorpay_payment_id;
+        fetch(`${BACKEND_URL}get-payment-details?payment_id=${paymentId}`)
+          .then(res => res.json())
+          .then(data => {
+            console.log("User Email: ", data.email);
+            console.log("User Contact Number: ", data.contact);
+          })
+          .catch(error => console.error("Error fetching payment details:", error));
 
-      fetch(`${BACKEND_URL}get-payment-details?payment_id=${paymentId}`)
-        .then(res => res.json())
-        .then(data => {
-          console.log("API Response:", data);  // Log the full response first
-          console.log("User Email:", data.email);
-          console.log("User Contact Number:", data.contact);
-      
-          if (data.email && data.contact) {
-            handleSubmits(paymentId, data.email, data.contact);
-          } else {
-            console.error("Email or Contact is missing from API response");
-          }
-        })
-        .catch(error => console.error("Error fetching payment details:", error));
-             
+        handleSubmits(paymentId);       
       },
       prefill: {
         name: 'PalmOil Directory',
@@ -137,36 +130,31 @@ const PricingScreens = () => {
     rzp1.open();
   };
 
-  const handleSubmits = async (transactionId,cardemail,cardphone) => {
+  const handleSubmits = async (transactionId) => {
     const currentDate = new Date();
     const expiryDate = new Date();
     expiryDate.setFullYear(expiryDate.getFullYear() + 1); 
     const formattedCurrentDate = `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
     const formattedExpiryDate = `${expiryDate.getMonth() + 1}/${expiryDate.getDate()}/${expiryDate.getFullYear()}`;
+
     try {
-      const emailPrefix = cardemail.split('@')[0]; 
-      const name = emailPrefix.replace(/[^a-zA-Z0-9]/g, ' ')
-            .split(' ')
-            .map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
-            .join(' ');
-        var user= {
-          name:name,
-          email:cardemail, 
-          password:'62AAa662626',
-          address:'',
-          address2:'', 
-          country_id:'', 
-          mobile:cardphone, 
-          company:'',
-          transaction_id:transactionId,
-          status:1,
-        };
-        const res =await axios.post(`${ BACKEND_URL }api/users/direct`, user);
-        console.log(res.data);
-        dispatch(setCredentials({ ...res.data }));
+        const res = await updateProfile({
+            userId: userInfo._id,
+            name: userInfo.name,
+            email: userInfo.email,
+            country_id: userInfo.country_id,
+            company: userInfo.company,
+            address: userInfo.address,
+            address2: userInfo.address2,
+            mobile: userInfo.mobile,
+            transactionId: transactionId,
+            expiryDate:formattedExpiryDate,
+            status:1
+        }).unwrap();
+        dispatch(setCredentials({ ...res }));
         var templateParamss = {
-            name: name,
-            email: cardemail,
+            name: userInfo.name,
+            email: userInfo.email,
             date:formattedCurrentDate,
             expiry_date:formattedExpiryDate,
             amount_paid:'74.95',
@@ -175,6 +163,7 @@ const PricingScreens = () => {
         await axios.post(`${BACKEND_URL}api/mailer/send-payment-mail`, templateParamss);
         navigate("/");
         toast.success("Payment successfully completed ");
+        navi
     } catch (err) {
         toast.error(err?.data?.message || err.error);
     }
@@ -291,7 +280,7 @@ const PricingScreens = () => {
                           <Link to="/subscribe" className="block text-raleway text-sm bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-12 rounded-lg shadow-md transition duration-200">Get Started</Link>
                       )
                     ) : (
-                      <Link onClick={handlePayment} className="block text-raleway text-sm bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-12 rounded-lg shadow-md transition duration-200">Get Started</Link>
+                      <Link to="/register" className="block text-raleway text-sm bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-12 rounded-lg shadow-md transition duration-200">Get Started</Link>
                     )}        
                   </div>
                   
@@ -306,4 +295,4 @@ const PricingScreens = () => {
   );
 };
 
-export default PricingScreens;
+export default PricingScreen;
