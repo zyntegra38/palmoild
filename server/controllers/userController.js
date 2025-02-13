@@ -374,6 +374,7 @@ const directRegistration = asyncHandler(async (req, res) => {
       mobile: user.mobile,
       role: user.role,
       status:user.status,
+      provider:'card'
     });
   } else {
     res.status(400);
