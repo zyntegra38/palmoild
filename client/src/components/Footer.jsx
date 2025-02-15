@@ -62,7 +62,6 @@ const Footer = () => {
 		  return;
 		}
 		const { _id, confirmPassword } = formData; 
-		alert(_id); 
 		if (password !== confirmPassword) {
 		  toast.error("Passwords do not match");
 		} else {

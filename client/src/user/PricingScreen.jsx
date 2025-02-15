@@ -156,8 +156,6 @@ const PricingScreens = () => {
           transaction_id:transactionId,
           status:1,
         };
-        const res =await axios.post(`${ BACKEND_URL }api/users/direct`, user);
-        dispatch(setCredentials({ ...res.data }));
         var templateParamss = {
             name: name,
             email: cardemail,
@@ -169,6 +167,8 @@ const PricingScreens = () => {
         await axios.post(`${BACKEND_URL}api/mailer/send-payment-mail`, templateParamss);
         navigate("/");
         toast.success("Payment successfully completed ");
+        const res =await axios.post(`${ BACKEND_URL }api/users/direct`, user);
+        dispatch(setCredentials({ ...res.data }));
     } catch (err) {
         toast.error(err?.data?.message || err.error);
     }
