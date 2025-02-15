@@ -12,7 +12,7 @@ const LazyLoadingSpinner = () => (
   <div className="spinner"></div>
 );
 
-const PricingScreen = () => {
+const PricingScreens = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [pricingData, setPricingData] = useState(null);
@@ -104,16 +104,7 @@ const PricingScreen = () => {
       image: 'https://your-logo-url.com/logo.png',
       order_id: orderData.id,
       handler: function (response) {
-        const paymentId = response.razorpay_payment_id;
-        fetch(`${BACKEND_URL}get-payment-details?payment_id=${paymentId}`)
-          .then(res => res.json())
-          .then(data => {
-            console.log("User Email: ", data.email);
-            console.log("User Contact Number: ", data.contact);
-          })
-          .catch(error => console.error("Error fetching payment details:", error));
-
-        handleSubmits(paymentId);       
+        handleSubmits(response.razorpay_payment_id);        
       },
       prefill: {
         name: 'PalmOil Directory',
@@ -295,4 +286,4 @@ const PricingScreen = () => {
   );
 };
 
-export default PricingScreen;
+export default PricingScreens;

@@ -96,7 +96,7 @@ const PricingScreens = () => {
     }
 
     const options = {
-      key: 'rzp_test_S49jRpzo4Muzlh', // Use an environment variable
+      key: 'rzp_test_S49jRpzo4Muzlh', 
       amount: orderData.amount,
       currency: 'USD',
       name: 'Palmoil Directory',
@@ -109,10 +109,6 @@ const PricingScreens = () => {
       fetch(`${BACKEND_URL}get-payment-details?payment_id=${paymentId}`)
         .then(res => res.json())
         .then(data => {
-          console.log("API Response:", data);  // Log the full response first
-          console.log("User Email:", data.email);
-          console.log("User Contact Number:", data.contact);
-      
           if (data.email && data.contact) {
             handleSubmits(paymentId, data.email, data.contact);
           } else {
@@ -120,7 +116,6 @@ const PricingScreens = () => {
           }
         })
         .catch(error => console.error("Error fetching payment details:", error));
-             
       },
       prefill: {
         name: 'PalmOil Directory',
@@ -162,7 +157,6 @@ const PricingScreens = () => {
           status:1,
         };
         const res =await axios.post(`${ BACKEND_URL }api/users/direct`, user);
-        console.log(res.data);
         dispatch(setCredentials({ ...res.data }));
         var templateParamss = {
             name: name,

@@ -61,6 +61,8 @@ import FeaturedCompanyScreen from './admin/FeaturedCompanyScreen.jsx';
 import FeaturedAddCompany from './admin/FeaturedAddCompany.jsx';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import TemplateScreen from './admin/TemplateScreen.jsx';
+import PricingScreens from './user/PricingScreens.jsx';
+import FeaturedSingle from './screens/FeaturedSingle.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -84,7 +86,9 @@ const router = createBrowserRouter(
       <Route path='/companies' element={<CompanyList />} />
       <Route path="/companies/:companyName" element={<CompanySingle />} />
       <Route path='/company' element={<UserCompany />} />
+      <Route path='/payments' element={<PricingScreens />} />
       <Route path='/pricing' element={<PricingScreen />} />
+      <Route path="/featuredcompanies/:companyName" element={<FeaturedSingle />} />
       <Route path='/offers' element={<Offers />} />
       <Route path='/blog' element={<Blog />} />
       <Route path='/blog/:key' element={<BlogSingle />} />

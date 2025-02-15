@@ -23,7 +23,7 @@ import Felda from '../images/Felda.png';
 import { BACKEND_URL } from '../constans';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
-
+import { Heart, MapPin, Users, ExternalLink, Star } from 'lucide-react';
 
 const defaultCmsContent = {
     'home-text-1': 'Largest Marketplace of companies in Palm Oil Industry. Buyers, Sellers, Traders, Brokers, Plantations, Organizations from around the world.',
@@ -34,12 +34,33 @@ const defaultCmsContent = {
     'home-sub-text-4': 'Organizations and government agencies throughout the world.',
 };
   
+// StarRating Component
+const StarRating = ({ rating, setRating }) => {
+    return (
+      <div className="flex gap-1">
+        {[...Array(5)].map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setRating(index + 1)}
+            className={`w-5 h-5 ${
+              index < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
+            }`}
+          >
+            <Star />
+          </button>
+        ))}
+      </div>
+    );
+};
+
 const HomeScreen = () => {
     const { userInfo } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [categoriesWithCompanies, setCategoriesWithCompanies] = useState([]);
     const [cmsContent, setCmsContent] = useState(defaultCmsContent);
+    const [featuredCompanies, setFeaturedCompanies] = useState([]);
+    const [rating, setRating] = useState(0);
     
     const fetchData = useCallback(async () => {
         try {
@@ -64,6 +85,18 @@ const HomeScreen = () => {
     useEffect(() => {
         fetchData();
     }, [fetchData]);
+
+    useEffect(() => {
+        const fetchFeaturedCompanies = async () => {
+          try {
+            const response = await axios.get(`${BACKEND_URL}api/featuredcompanies/companies`);
+            setFeaturedCompanies(response.data);
+          } catch (error) {
+            console.error("Error fetching featured companies", error);
+          }
+        };
+        fetchFeaturedCompanies();
+    }, []);
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -165,66 +198,75 @@ const HomeScreen = () => {
                 </svg>
             </div>
             <div className="container px-4 lg:px-8 mx-auto mb-5 max-w-screen-xl text-gray-700 overflow-x-hidden lg:overflow-x-visible">
-                <div className="p-5">
-                    <div className="grid grid-cols-4 gap-6">
-                        <div className="col-span-4">
-                        <div className="grid grid-cols-3 gap-6">
-                            {[...Array(6)].map((_, index) => (
-                            <div
-                                key={index}
-                                className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center relative"
-                            >
-                                <button className="absolute top-2 right-2">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="2"
-                                    stroke="currentColor"
-                                    className="w-6 h-6 text-gray-500 hover:text-red-500"
-                                >
-                                    <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M20.84 4.61c-.55-.54-1.32-.87-2.12-.87-1.54 0-2.87 1.08-3.38 2.63h-1.9c-.5-1.55-1.84-2.63-3.38-2.63-.8 0-1.57.33-2.12.87-.6.6-.88 1.42-.88 2.25 0 3.88 6.63 8.3 7.5 8.84.11.08.23.12.36.12s.25-.04.36-.12c.87-.54 7.5-4.96 7.5-8.84 0-.83-.28-1.65-.88-2.25z"
-                                    />
-                                </svg>
-                                </button>
-                                <img
-                                src="./FGV IFFCO SDN BHD15_logo.jpg"
-                                alt="Logo"
-                                className="mb-4"
-                                />
-                                <h4 className="text-lg font-medium text-center">
-                                FGV IFFCO SDN BHD
-                                </h4>
-                                <button className="bg-black text-white px-6 py-2 rounded-full mt-4">
-                                More info
-                                </button>
+                <div className="bg-gradient-to-br from-slate-50 to-slate-100 p-8">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {featuredCompanies.map((company, index) => (
+                            <div key={index}
+                                className="group relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                                <div className="h-24 bg-gradient-to-r from-yellow-200 to-green-400 relative flex items-center">
+                                    <h3 className="w-full text-lg font-semibold text-white text-center mb-9">
+                                       {company.company}
+                                    </h3>
+
+                                    <div className="absolute -bottom-12 left-6 flex items-center w-full">
+                                        <div className="p-1 bg-white rounded-xl shadow-lg" style={{ maxWidth: '30%' }}>
+                                        <img
+                                            src={company.logo}
+                                            alt={company.company}
+                                            className="w-22 h-20 rounded-lg object-cover" style={{ maxWidth: '100%' }}/>
+                                        </div>
+
+                                        <div className="absolute right-10 top-10 flex gap-1 mt-5 mr-4">
+                                        <StarRating rating={company.rating} setRating={setRating} />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="px-6 pt-16 pb-6">
+                                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-6">
+                                        <div className="flex items-center gap-1">
+                                        <MapPin className="w-4 h-4" />
+                                        <span>{company.countryName}</span>
+                                        </div>
+                                        <div className="flex items-center gap-1">
+                                        <Users className="w-4 h-4" />
+                                        <span>1000+</span>
+                                        </div>
+                                        <div className="flex flex-wrap gap-2 mt-2 mb-2">
+                                            <span className="px-4 py-1 bg-green-50 text-green-700 rounded-full text-xs font-medium">
+                                                {company.categoryName}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <Link className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-green-400 to-yellow-200 text-white py-2.5 rounded-xl font-medium hover:from-green-700 hover:to-yellow-600 transition-all group-hover:shadow-md" 
+                                    to={`/featuredcompanies/${company.company_slug}`}>
+                                    More info <ExternalLink className="w-4 h-4" /></Link>
+                                </div>
                             </div>
-                            ))}
-                        </div>
+                        ))}
                         </div>
                     </div>
                 </div>
-                <div className="md:flex mt-10 md:space-x-10 items-start">
                 
+                <div className="md:flex mt-10 md:space-x-10 items-start">
                     <div data-aos="fade-down" className="md:w-5/12 relative aos-init aos-animate">
                         <div style={{ background: '#33EFA0' }} className="w-32 h-32 rounded-full absolute z-0 left-4 -top-12 animate-pulse"></div>
                         <div style={{ background: '#33D9EF' }} className="w-5 h-5 rounded-full absolute z-0 left-36 -top-12 animate-ping"></div>
                         <div className="frames h-96 overflow-hidden">
                             <img className="floating" src={vlo_img} alt="Palmoildirectory Palm Field"/>
-                            {/* <div className='mt-10'>
+                            <div className='mt-10'>
                                 <p>Frequently Asked Questions</p>
                                 <p>Is This A Subscription?</p>
                                 <p>No - This a one time payment, no further payments necessary.</p>
-                            </div> */}
+                            </div>
                         </div>
                         
                         <div style={{ background: '#5B61EB' }} className="w-32 h-32 rounded-full absolute z-0 right-0 -bottom-10 animate-pulse"></div>
                         <div style={{ background: '#F56666' }} className="w-5 h-5 rounded-full absolute z-0 right-52 -bottom-10 animate-ping"></div>
                     </div>
-
                     <div data-aos="fade-down" className="md:w-7/12 mt-20 md:mt-0 text-gray-500 aos-init aos-animate">
                         <h1 className="text-2xl font-semibold text-darken lg:pr-40"><span className="text-yellow-500">PalmOil </span> Directory</h1>
                         <div className="flex items-center space-x-5 my-5">
@@ -294,7 +336,6 @@ const HomeScreen = () => {
                         </div>
                     ))}
                 </div>
-
             </div>
         </div>
     )

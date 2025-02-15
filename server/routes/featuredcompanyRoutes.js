@@ -102,7 +102,6 @@ router.post('/', upload.single('logo'), async (req, res) => {
 router.get('/', getCompanies);
 router.get('/normaluser', getNormalUserCompanies);
 router.get('/list', getCompanyList);
-router.get('/featuredlist', getFeaturedCompanies);
 router.get('/single/:companyId', getSingleCompanies);
 router.get('/search', searchCompanies);
 router.put('/:id', upload.single('logo'), async (req, res) => {
@@ -170,8 +169,7 @@ router.put('/:id', upload.single('logo'), async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-
+router.get("/companies", getFeaturedCompanies);
 router.delete('/:id', deleteCompany);
 router.get('/:companyName', getCompanyDetails);
 router.get('/category/:catID/:companyId', getRelatedCompanies);

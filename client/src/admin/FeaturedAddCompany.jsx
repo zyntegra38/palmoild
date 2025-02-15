@@ -27,6 +27,7 @@ const FeaturedAddCompany = () => {
         address2: '',
         description: '',
         status: 'true', 
+        rating: '', 
         facebook_url: '',
         twitter_url: '',
         linkedin_url: '',
@@ -280,6 +281,7 @@ const FeaturedAddCompany = () => {
             address2: '',
             description: '',
             status: 'true',
+            rating: '',
             facebook_url: '',
             twitter_url: '',
             linkedin_url: '',
@@ -420,6 +422,18 @@ const FeaturedAddCompany = () => {
                         value={formData.title} 
                         onChange={handleInputChange}
                         className="w-full rounded border border-gray-400 h-10 pl-2"/>
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="site_id" className="pb-3 block text-sm uppercase font-raleway py-3 font-semibold text-gray-700">
+                        Rating</label>
+                    <select id="rating" name="rating" value={formData.rating}  onChange={handleDropdownChange} placeholder='rating:'
+                        className="w-full rounded border px-6 py-3 font-lato text-gray-600 text-sm focus:outline-none font-semibold">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
                 </div>
                 <div className="mb-4">
                     <textarea 

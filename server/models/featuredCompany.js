@@ -22,6 +22,10 @@ const featuredCompanySchema = new mongoose.Schema({
   date_added: { type: Date, default: Date.now },
   facebook_url: String,
   twitter_url: String,
+  rating:  {
+    type: String,
+    default: 5,
+  },
   linkedin_url: String,
   insta_url: String,
   brochure_url: String,

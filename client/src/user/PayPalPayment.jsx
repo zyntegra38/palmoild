@@ -335,7 +335,7 @@ const PayPalButton = () => {
         }
     
         const options = {
-          key: 'rzp_live_NCXCXBQAFe6FUE', // Use an environment variable
+          key: 'rzp_test_S49jRpzo4Muzlh', // Use an environment variable
           amount: orderData.amount,
           currency: 'USD',
           name: 'Palmoil Directory',

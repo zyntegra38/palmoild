@@ -188,7 +188,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 });
 
 const updateUserPassword = asyncHandler(async (req, res) => {
-  const { _id, current_password, password } = req.body;
+  const { _id, password } = req.body;
   const user = await User.findById(_id);
   if (!user) {
     return res.status(404).json({ error: 'User not found' });
@@ -198,7 +198,19 @@ const updateUserPassword = asyncHandler(async (req, res) => {
     await User.updateOne({ _id: _id }, {
       password: hashPassword,
     });
-    res.status(200).json({ success: 'Password updated' });
+    generateToken(res, user._id);
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      company: user.company,
+      address: user.address,
+      address2: user.address2,
+      country_id: user.country_id,
+      mobile: user.mobile,
+      role: user.role,
+      status:user.status,
+    });
   }
 });
 
