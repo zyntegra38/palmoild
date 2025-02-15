@@ -5,7 +5,7 @@ import axios from 'axios';
 import { setCredentials } from "../slices/authSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import { useSubscribeMutation } from "../slices/usersApiSlice";
-import { BACKEND_URL } from "../constans";
+import { BACKEND_URL, RAZORPAY_KEY_ID } from "../constans";
 import { Helmet } from 'react-helmet';
 
 const LazyLoadingSpinner = () => (
@@ -224,7 +224,7 @@ const PayPalButton = () => {
         }
 
         const options = {
-            key: 'rzp_test_S49jRpzo4Muzlh', // Use an environment variable
+            key: RAZORPAY_KEY_ID, // Use an environment variable
             amount: orderData.amount,
             currency: 'USD',
             name: 'Palmoil Directory',
@@ -335,7 +335,7 @@ const PayPalButton = () => {
         }
     
         const options = {
-          key: 'rzp_test_S49jRpzo4Muzlh', // Use an environment variable
+          key: RAZORPAY_KEY_ID, // Use an environment variable
           amount: orderData.amount,
           currency: 'USD',
           name: 'Palmoil Directory',

@@ -46,8 +46,8 @@ const __dirname = path.dirname(__filename);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const razorpay = new Razorpay({
-    key_id: 'rzp_test_S49jRpzo4Muzlh', // Use environment variables
-    key_secret: 'esfFTZfUGlzaqXBmj02j5kiL',
+    key_id: process.env.RAZORPAY_KEY_ID, // Use environment variables
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
 // Create order endpoint
@@ -76,17 +76,6 @@ app.get('/get-payment-details', async (req, res) => {
   }
 });
 
-// async function fetchPaymentDetails(paymentId) {
-//   try {
-//     const paymentDetails = await razorpay.payments.fetch(paymentId);
-//     console.log(paymentDetails);
-//   } catch (error) {
-//     console.error('Error fetching payment details:', error);
-//   }
-// }
-
-// Call this function with the razorpay_payment_id
-// fetchPaymentDetails('pay_PuM5ridbIVRxWc');
 // Define API routes
 app.use('/api/users', userRoutes);
 app.use('/api/countries', countryRoutes);

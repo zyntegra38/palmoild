@@ -5,7 +5,7 @@ import { useRegisterMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
-import { BACKEND_URL } from "../constans";
+import { BACKEND_URL, RAZORPAY_KEY_ID } from "../constans";
 import fb from '../images/fb.png';
 import link from '../images/link.png';
 import goog from '../images/goog.png';
@@ -397,7 +397,7 @@ const RegisterScreen = () => {
     }
 
     const options = {
-      key: 'rzp_test_S49jRpzo4Muzlh', // Use an environment variable
+      key: RAZORPAY_KEY_ID, // Use an environment variable
       amount: orderData.amount,
       currency: 'USD',
       name: 'Palmoil Directory',

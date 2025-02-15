@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { BACKEND_URL } from "../constans";
+import { BACKEND_URL, RAZORPAY_KEY_ID } from "../constans";
 import { Helmet } from 'react-helmet';
 import { useSubscribeMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
@@ -96,7 +96,7 @@ const PricingScreens = () => {
     }
 
     const options = {
-      key: 'rzp_test_S49jRpzo4Muzlh', // Use an environment variable
+      key: RAZORPAY_KEY_ID, // Use an environment variable
       amount: orderData.amount,
       currency: 'USD',
       name: 'Palmoil Directory',
